@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
+    <!--Normally I would put this in a stylesheet but there was some problem with my server so that it wasn't loading it.-->
     <style>
       body {
         font: 16px Arial; 
@@ -54,6 +54,7 @@
       
     </style>
     
+    <!--jQuery Scripts-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     
     <!-- Required meta tags -->
@@ -72,88 +73,73 @@
     
     <title>Weather App</title>
   </head>
-  
   <body>
-      
-        <!--NAVIGATION BAR-->
-        <nav class="navbar navbar-expand-lg navbar fixed-top navbar-light bg-light justify-content-between">
-          <a class="navbar-brand" href="http://18.206.85.48/lab-1-portfolio-aPeter1/index.html">Alec Petersen</a>
-          <h5>Weather App</h5>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </nav>
-        
-        <section class="main-container">
-          </article>
-            <article class="index-intro">
-                  <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-4">
-                              <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" src="https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/apps/kweather.png" alt="Card image cap">
-                                <div class="card-body">
-                                  <h4 class="card-title" id="cityField">City</h4>
-                                  <p class="card-text">Current Weather</p>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                  <li class="list-group-item" id="tempbox">Temperature: No Data</li>
-                                  <li class="list-group-item" id="humidbox">Humidity: No Data</li>
-                                  <li class="list-group-item" id="windbox">Wind Speed: No Data</li>
-                                  <li class="list-group-item" id="weatherbox">Weather: No Data</li>                                
-                                </ul>
-                              </div>
-                            </div>
-                            <div class="col-sm-5">
-                              <br><br><br>
-                              <h5>Enter A Utah City: </h5>
-                              <form autocomplete="off" action="/action_page.php">
-                                <div class="autocomplete" style="width:300px;">
-                                  <input id="myInput" type="text" name="myCountry" placeholder="City">
-                                </div>
-                                <input type="submit" id="weatherButton">
-                              </form>
-                            </div>
-                        </div>
-                    </div>
-                  </div>              
-            </article>
-            
-            <article class="index-intro">
+    <!--NAVIGATION BAR-->
+    <nav class="navbar navbar-expand-lg navbar fixed-top navbar-light bg-light justify-content-between">
+      <a class="navbar-brand" href="http://18.206.85.48/lab-1-portfolio-aPeter1/index.html">Alec Petersen</a>
+      <h5>Weather App</h5>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    <section class="main-container">
+      </article>
+        <article class="index-intro">
               <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                  <div class="row">
-                    <div class="col-sm-7">
-                        <div class="card" >
-                          <div class="card-body">
-                            <h4 class="card-title" id="cityField">Stack Exchange Search Results</h4>
+                    <div class="row">
+                        <div class="col-sm-4">
+                          <br><br>
+                          <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/apps/kweather.png" alt="Card image cap">
+                            <div class="card-body">
+                              <h4 class="card-title" id="cityField">City</h4>
+                              <p class="card-text">Current Weather</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item" id="tempbox">Temperature: No Data</li>
+                              <li class="list-group-item" id="humidbox">Humidity: No Data</li>
+                              <li class="list-group-item" id="windbox">Wind Speed: No Data</li>
+                              <li class="list-group-item" id="weatherbox">Weather: No Data</li>                                
+                            </ul>
                           </div>
-                          <ul id="stackul" class="list-group list-group-flush">
-                          </ul>
                         </div>
-                      </div>
-                      <div class="col-sm-5">
-                        <h5>Enter a keyword to search on Stack Exchange: </h5>
-                        <form autocomplete="off" action="/action_page.php">
-                          <div style="width:400px;">
-                            <input id="stackInput" type="text" name="myStack" placeholder="Keyword">
-                          </div><br>
-                          <button id="stackButton" type="button" class="btn btn-primary">Submit</button>
-                        </form>
-                      </div>
+                        <div class="col-sm-4">
+                          <br><br><br>
+                          <h5>Enter A Utah City: </h5>
+                          <form autocomplete="off" action="/action_page.php">
+                            <div class="autocomplete" style="width:300px;">
+                              <input id="myInput" type="text" name="myCountry" placeholder="City">
+                            </div><br>
+                            <br><input type="submit" id="weatherButton">
+                          </form>
+                          <br>
+                          <br>
+                          <h5>Enter a keyword to search on Stack Exchange: </h5>
+                          <form autocomplete="off" action="/action_page.php">
+                            <div style="width:300px;">
+                              <input id="stackInput" type="text" name="myStack" placeholder="Keyword">
+                            </div><br>
+                            <input type="submit" id="stackButton" placeholder="keyword">
+                          </form><br><br>
+                        </div>
+                        <div class="col-sm-4">
+                          <br><br>
+                          <div class="card" >
+                            <div class="card-body">
+                              <h4 class="card-title" id="cityField">Stack Exchange Search Results</h4>
+                            </div>
+                            <ul id="stackul" class="list-group list-group-flush">
+                            </ul>
+                          </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-            </article>  
-          </section>  
-
-
+              </div>              
+        </article>
+      </section>  
     
-    <!--<script src="script.js"></script>-->
-    
-    
+    <!--Normally I would put this in a .js file but there was some problem with my server so that it wasn't loading it.-->
     <script>
       function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
@@ -310,7 +296,6 @@
           dataType : "json",
           success : function(data) {
               var everything="";
-    
               everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['0']['title'] +"</h5></a></li>";
               everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['1']['title'] +"</h5></a></li>";
               everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['2']['title'] +"</h5></a></li>";
@@ -318,7 +303,6 @@
               everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['4']['title'] +"</h5></a></li>";
               everything += "<li class=\"list-group-item\"> <a href=\"https://stackexchange.com/search?q="+value+"\">See more...</a></li>";
               $("#stackul").html(everything);
-
               console.log(data);
               console.log(everything);
           }
