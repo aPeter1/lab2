@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--4c09d95b7b5db07ff9a2e532f7d14d36-->
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    
+    <!-- Required meta tags -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- SOCIAL MEDIA CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>Weather App</title>
+  </head>
+  
+  <body>
+      
+        <!--NAVIGATION BAR-->
+        <nav class="navbar navbar-expand-lg navbar fixed-top navbar-light bg-light justify-content-between">
+          <a class="navbar-brand" href="http://18.206.85.48/lab-1-portfolio-aPeter1/index.html">Alec Petersen</a>
+          <h5>Weather App</h5>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </nav>
+        
+        <section class="main-container">
+          <!--<article class="page-banner">-->
+          <!--    <div class="jumbotron jumbotron-fluid">-->
+          <!--    </div>-->
+          </article>
+            <article class="index-intro">
+                  <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                              <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="weatherCard.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                  <h4 class="card-title" id="cityField">City</h4>
+                                  <p class="card-text">Current Weather</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                  <li class="list-group-item" id="tempbox">Temperature: No Data</li>
+                                  <li class="list-group-item" id="humidbox">Humidity: No Data</li>
+                                  <li class="list-group-item" id="windbox">Wind Speed: No Data</li>
+                                  <li class="list-group-item" id="weatherbox">Weather: No Data</li>                                
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="col-sm-5">
+                              <h5>Enter A Utah City: </h5>
+                              <form autocomplete="off" action="/action_page.php">
+                                <div class="autocomplete" style="width:300px;">
+                                  <input id="myInput" type="text" name="myCountry" placeholder="City">
+                                </div>
+                                <input type="submit" id="weatherButton">
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                  </div>              
+            </article>
+            
+            <article class="index-intro">
+              <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-7">
+                        <div class="card" >
+                          <div class="card-body">
+                            <h4 class="card-title" id="cityField">Stack Exchange Search Results</h4>
+                  
+                          </div>
+                          <ul id="stackul" class="list-group list-group-flush">
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <h5>Enter a keyword to search on Stack Exchange: </h5>
+                        <form autocomplete="off" action="/action_page.php">
+                          <div style="width:400px;">
+                            <input id="stackInput" type="text" name="myStack" placeholder="Keyword">
+                          </div><br>
+                          <button id="stackButton" type="button" class="btn btn-primary">Submit</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>  
+          </section>  
+
+
+    
+    <script src="script.js"></script>
+    
+    
+    <script>
+      $(document).ready(function() {
+      $("#myInput").keyup(function() {
+        var url = "http://bioresearch.byu.edu/cs260/jquery/getcity.cgi?q="+$("#myInput").val();
+        $.getJSON(url,function(data) {
+          var everything;
+          var cities = [];
+          everything = "<ul>";
+          $.each(data, function(i,item) {
+            cities[i] = data[i].city;
+            everything += "<li> "+data[i].city;
+          });
+          everything += "</ul>";
+          $("#txtHint").html(everything);
+          autocomplete(document.getElementById("myInput"),cities);
+        })
+        .done(function() { console.log('getJSON request succeeded!'); })
+        .fail(function(jqXHR, textStatus, errorThrown) { 
+          console.log('getJSON request failed! ' + textStatus); 
+          console.log("incoming "+jqXHR.responseText);
+        })
+        .always(function() { console.log('getJSON request ended!');
+        });
+      });
+      });
+      
+      $("#weatherButton").click(function(e){
+        var value = $("#myInput").val();
+        console.log(value);
+        e.preventDefault();
+        $("#cityField").text(value);
+        var myurl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&appid=4c09d95b7b5db07ff9a2e532f7d14d36&q=";
+        myurl += value;
+        console.log(myurl);
+        $.ajax({
+          url : myurl,
+          dataType : "json",
+          success : function(data) {
+              console.log(data);
+              $("#tempbox").text("Temperature: " +data['main']['temp'] +" F");
+              $("#humidbox").text("Humidity: " +data['main']['humidity'] +"%");
+              $("#windbox").text("Wind Speed: " +data['wind']['speed'] +" MPH");
+              $("#weatherbox").text("Weather: " +data['weather'][0]['main']);
+          }
+        });
+      });
+      
+      $("#stackButton").click(function(e){
+        var value = $("#stackInput").val();
+        console.log(value);
+        e.preventDefault();
+        var myurl = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=";
+        myurl += value;
+        myurl += "&site=stackoverflow";
+        console.log(myurl);
+        $.ajax({
+          url : myurl,
+          dataType : "json",
+          success : function(data) {
+              var everything="";
+    
+              everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['0']['title'] +"</h5></a></li>";
+              everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['1']['title'] +"</h5></a></li>";
+              everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['2']['title'] +"</h5></a></li>";
+              everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['3']['title'] +"</h5></a></li>";
+              everything += "<li class=\"list-group-item\"><a href=" +data['items']['0']['link'] +"><h5>"+data['items']['4']['title'] +"</h5></a></li>";
+              everything += "<li class=\"list-group-item\"> <a href=\"https://stackexchange.com/search?q="+value+"\">See more...</a></li>";
+              $("#stackul").html(everything);
+
+              console.log(data);
+              console.log(everything);
+          }
+        });
+      });
+    </script>
+    
+    <!-- Bootstrap Script Links -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
